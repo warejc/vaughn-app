@@ -5,9 +5,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var api = require('instagram-node').instagram();
+var http = require('http');
+//var routes = require('./routes/index');
+//var users = require('./routes/users');
 
 var app = express();
 var router = express.Router();
@@ -23,17 +24,47 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+api.use({
+        client_id: "",
+        client_secret: ""
+    });
+var redirect_uri = 'http://localhost/app';
+
+exports.authorize_user = function(req, res){
+    res.redirect(api.get_authorization_url(redirect_uri, {scope: ['likes'], state: 'a state'}));
+};
+
+exports.handleauth = function(req, res){
+    api.authorize_user(req.query.code, redirect_uri, function(err, result){
+        if(err){
+            console.log(err.body);
+            res.render('error');
+        } else{
+            console.log("success");
+            console.log(result.access_token);
+            res.render('app');
+
+        }
+    });
+};
 //app.use(express.static(path.join(__dirname, 'public')));
 
 //routing using handlebars
 app.get('/', function(req, res){
-    res.render('index');
+    res.render('auth');
 
 });
+
+app.get('/auth', exports.authorize_user);
+
+app.get('/handleauth', exports.handleauth);
 
 app.get('/about', function(req, res){
     res.render('about');
 });
+
+//set up the instagram stuff
+
 
 
 
