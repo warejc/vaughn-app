@@ -1,0 +1,45 @@
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+<script src='../js/app_page.js' type="text/javascript"></script>
+<body>
+
+    <div class="container">
+        <br/>
+        <div class="row">
+            <div class="chip user">
+                <img src={{profilePic}} alt="Contact Person">
+                {{username}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="carousel">
+                {{#each newest}}
+                    <img class="carousel-item" src={{this}}>
+                {{/each}}
+            </div>
+        </div>
+        <div class="row">
+
+        {{#each picList}}
+            <div class="col m4">
+                <div class="card z-depth-3 hoverable">
+                    <div class="card-image">
+                        <img class="materialboxed" src={{this}}>
+                        <span class="card-title">{{username}}</span>
+                    </div>
+                    <div class="card-content blue lighten-1 white-text">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut lorem augue. Vestibulum tincidunt feugiat nulla, at ornare lorem congue vitae. In aliquam aliquam consequat.</p>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+
+        </div>
+    </div>
+</body>
