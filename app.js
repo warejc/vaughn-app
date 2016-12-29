@@ -4,13 +4,11 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('config');
-
 var auth =  require('./routes/auth');
 var init = require('./routes/init');
 
 var app = express();
 
-var token;
 var cli_id = config.get("vaughn-app.ig_conf.cli_id");
 var cli_secret = config.get("vaughn-app.ig_conf.cli_secret");
 
@@ -21,12 +19,12 @@ app.set('view engine', 'handlebars');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-
 app.use(express.static(__dirname + '/public'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+//routing
 app.use('/', init);
 app.use('/auth', auth);
 

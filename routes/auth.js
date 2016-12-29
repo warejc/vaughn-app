@@ -18,7 +18,6 @@ ig.use({
 });
 
 exports.handleauth = function(req, res){
-    console.log('here');
     ig.authorize_user(req.query.code, redirect_uri, function(err, result){
         if(err){
             console.log(err.body);
@@ -31,7 +30,7 @@ exports.handleauth = function(req, res){
               uri : url,
               json : true
             }
-
+            //A hack because auth for ig client doesn't fully work
             rp(options)
               .then(function (data){
                 jsonData = data["data"];
