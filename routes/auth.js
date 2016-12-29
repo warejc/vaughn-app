@@ -35,8 +35,8 @@ exports.handleauth = function(req, res){
               .then(function (data){
                 jsonData = data["data"];
                 picList = jsonData.map(x => x["images"]["standard_resolution"]["url"]);
-                picList.reverse();
-                newest = picList.slice(0,5);
+                newest = jsonData.map(x => x["images"]["low_resolution"]["url"]);
+                newest = newest.slice(0,5);
                 var data = {
                               token: result.access_token,
                               name: result.user["full_name"],
