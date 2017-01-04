@@ -24,7 +24,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//routing
+// routing
 app.use('/', init);
 app.use('/auth', auth);
 
